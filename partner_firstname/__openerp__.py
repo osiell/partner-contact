@@ -34,7 +34,7 @@ Jonathan Nemry <jonathan.nemry@acsone.eu>
 Olivier Laurent <olivier.laurent@acsone.eu>
 
 """,
-    'version': '7.0.1.2.0',
+    'version': '7.0.1.2.1',
     'author': "Camptocamp,Odoo Community Association (OCA)",
     "license": "AGPL-3",
     'maintainer': 'Camptocamp, Acsone',
