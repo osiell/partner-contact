@@ -22,7 +22,9 @@ def migrate_from_base_partner_surname(cr):
     """Update res_partner from res_partner_address or former res_partner."""
     cr.execute("""
         UPDATE res_partner rp
-        SET firstname=rpa.first_name, lastname=COALESCE(rpa.last_name, rp.name)
-        FROM res_partner_address rpa
-        WHERE rpa.partner_id = rp.id
+        SET firstname=rpa.first_name,
+        lastname=COALESCE(rpa.last_name, rpa.name, rp2.name, '/')
+        FROM res_partner_address rpa LEFT JOIN res_partner rp2
+        ON rpa.partner_id = rp2.id
+        WHERE rpa.openupgrade_7_migrated_to_partner_id = rp.id
         """)
