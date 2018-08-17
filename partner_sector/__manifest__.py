@@ -14,7 +14,7 @@
     "application": False,
     "installable": True,
     "depends": [
-        "sales_team",
+        "sale",
     ],
     "data": [
         "security/ir.model.access.csv",
