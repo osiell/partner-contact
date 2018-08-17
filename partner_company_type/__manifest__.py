@@ -11,7 +11,7 @@
     'website': 'https://acsone.eu',
     'depends': [
         'base',
-        'sales_team',
+        'sale',
     ],
     'data': [
         'security/res_partner_company_type.xml',
