@@ -44,9 +44,7 @@ class ResBank(models.Model):
         ]
 
     @api.model
-    def _name_search(
-        self, name, args=None, operator="ilike", limit=100, name_get_uid=None
-    ):
+    def _name_search(self, name, domain=None, operator="ilike", limit=100, order=None):
         """Return matches of bank_code, branch_code first"""
         matches = self.browse([])
         if name and operator not in expression.NEGATIVE_TERM_OPERATORS:
@@ -57,19 +55,18 @@ class ResBank(models.Model):
                         ("bank_code", "=ilike", name + "%"),
                         ("bank_branch_code", "=ilike", name + "%"),
                     ]
-                    + (args or []),
+                    + (domain or []),
                     limit=limit,
-                    access_rights_uid=name_get_uid,
                 )
             )
         if not limit or len(matches) < limit:
             matches += self.browse(
                 super()._name_search(
                     name,
-                    args=[("id", "not in", matches.ids)] + (args or []),
+                    domain=[("id", "not in", matches.ids)] + (domain or []),
                     operator=operator,
                     limit=limit and limit - len(matches) or limit,
-                    name_get_uid=name_get_uid,
+                    order=order,
                 )
             )
         return matches.ids
